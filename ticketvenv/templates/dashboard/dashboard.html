@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+{% if request.user.is_customer %}
+
+<section class="container mt-5">
+  <div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">Welcome to Your Customer Dashboard</h1>
+      <p class="col-md-8 fs-4">
+        Manage your tickets and view their statuses easily. Create new tickets for any issues you encounter and keep track of their progress. We're here to help you resolve your concerns efficiently.
+      </p>
+      <a href="{% url 'create-ticket' %}" class="btn btn-primary btn-lg" type="button">Create Ticket</a>
+    </div>
+  </div>
+</section>
+
+{% elif request.user.is_engineer %}
+
+<section class="container mt-5">
+  <div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">Engineer Dashboard</h1>
+      <p class="col-md-8 fs-4">
+        Monitor and manage the tickets assigned to you. Accept new tickets, update their statuses, and resolve issues promptly to provide the best support experience to our customers. Your expertise ensures smooth and efficient resolution of customer problems.
+      </p>
+      <a href="{% url 'ticket-queue' %}" class="btn btn-primary btn-lg" type="button">View Ticket Queue</a>
+    </div>
+  </div>
+</section>
+
+{% else %}
+
+<section class="container mt-5">
+  <div class="p-5 mb-4 bg-light rounded-3">
+    <div class="container-fluid py-5">
+      <h1 class="display-5 fw-bold">Welcome to Your Dashboard</h1>
+      <p class="col-md-8 fs-4">
+        Explore and manage your account settings. Access various features and functionalities to tailor your experience. Our platform provides tools and resources to support your needs effectively.
+      </p>
+      <a href="{% url 'login' %}" class="btn btn-primary btn-lg" type="button">Login</a>
+    </div>
+  </div>
+</section>
+
+{% endif %}
+
+{% endblock content %}

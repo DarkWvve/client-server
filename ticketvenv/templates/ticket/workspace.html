@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+{% load widget_tweaks %}    
+
+{% block content %}
+
+<div class="card mx-auto" style="width: 76rem;">
+    <div class="card-body">
+        <h5 class="card-title mb-3 ">Ticket WorkSpace</h5>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">Ticket ID</th>
+                    <th scope="col">Title</th>
+                    <th scope="col">Created On</th>
+                    <th scope="col">Assigned To</th>
+                    <th scope="col">Status</th>
+                    <th scope="col">Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for ticket in ticket %}
+                <tr>
+                    dfg
+                    <td><small>{{ ticket.ticket_number }}</small></td>
+                    <td><small>{{ ticket.title }}</small></td>
+                    <td><small>{{ ticket.date_created }}</small></td>
+                    {% if ticket.assigned_to %}
+                    <td><small>{{ ticket.assigned_to.username }}</small></td>
+                    {% else %}
+                    <td><small>Not Assigned</small></td>
+                    {% endif %}
+                    {% if ticket.ticket_status == 'Active' %}
+                    <td class="text-success"><small>Active</small></td>
+                    {% elif ticket.ticket_status == 'Completed' %}
+                    <td class="text-danger"><small>Completed</small></td>
+                    {% elif ticket.ticket_status == 'Pending' %}
+                    <td class="text-warning"><small>Pending</small></td>
+                    {% endif %}
+                    <td><a href="{% url 'ticket-details' ticket.id %}">View Details</a></td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+{% endblock content %}

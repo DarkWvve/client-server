@@ -1,0 +1,21 @@
+# systemd unit для gunicorn (Этап 1 - автозапуск сервиса).
+# Кладётся в /etc/systemd/system/ticket.service
+# Затем: sudo systemctl enable --now ticket
+
+[Unit]
+Description=HelpDesk IT (Gunicorn)
+After=network.target
+
+[Service]
+User=ticket
+Group=www-data
+WorkingDirectory=/home/ticket/django-ticket-management-system/ticketvenv
+EnvironmentFile=/home/ticket/django-ticket-management-system/ticketvenv/.env
+ExecStart=/home/ticket/django-ticket-management-system/ticketvenv/venv/bin/gunicorn \
+    --workers 3 \
+    --bind 127.0.0.1:8000 \
+    ticket_system.wsgi:application
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
